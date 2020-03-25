@@ -1,11 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loading from './components/widgets/Loading';
+import { BrowserRouter as Router } from 'react-router-dom';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import 'normalize.css/normalize.css';
+import '@blueprintjs/core/lib/css/blueprint.css';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import initialize from './utils/config';
+
+ReactDOM.render(<Loading/>, document.getElementById('root'));
+
+initialize().then(function() {
+    ReactDOM.render(
+        <Router>
+          <React.Fragment>
+            <ToastContainer />
+            <App />
+          </React.Fragment>
+        </Router>
+        , document.getElementById('root'));
+  });
