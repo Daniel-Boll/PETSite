@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import {Zoom} from '@material-ui/core'
-import Logo from './subContent/Logo'
-import PETD from './subContent/PETD'
-import PETIcons from './subContent/PETIcons'
-import '../../css/App.css';
+import Logo from '../subContent/Logo'
+import PETD from '../subContent/PETD'
+import PETIcons from '../subContent/PETIcons'
+import '../../../css/App.css';
 
 class HomeContent extends Component {
 

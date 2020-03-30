@@ -3,7 +3,8 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import NotFound from './NotFound';
 import Home from './Home';
 import Member from './Member';
-import Form from './Form';
+import Project from './Project';
+import Forms from './Forms';
 
 const Routes = () => {
     return (
@@ -11,7 +12,8 @@ const Routes = () => {
             <Switch>
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/Member" component={Member}/>
-                <Route exact path="/Form" component={Form}/>
+                <Route exact path="/Project" component={Project}/>
+                <Route exact path="/Forms" component={Forms}/>
                 <Route path="/*" component={NotFound}/>
             </Switch>
         </BrowserRouter>

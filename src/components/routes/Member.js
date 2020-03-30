@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { Container } from "react-bootstrap";
 import NavBar from '../widgets/NavBar';
 import Footer from '../widgets/Footer';
-import MemberContent from '../widgets/MemberContent';
+import MemberContent from '../widgets/pagesContent/MemberContent';
 import '../../css/App.css';
 
 class Member extends Component {

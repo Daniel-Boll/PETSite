@@ -1,10 +1,10 @@
 import * as firebase from "firebase/app";
 import "firebase/database";
-import {Membro, ICV} from '../model/Membro';
+import {Membro, ICV} from '../objects/Membro';
 
 const pathMembers = 'Members';
 
-class DataHandler {
+class MemberDataHandler {
     
     // Função para pegar todos os membros
 
@@ -87,4 +87,4 @@ class DataHandler {
     }
 }
 
-export default DataHandler;
+export default MemberDataHandler;

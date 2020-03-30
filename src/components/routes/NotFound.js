@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Container } from "react-bootstrap";
 import NavBar from '../widgets/NavBar';
-import NotFoundContent from '../widgets/NotFoundContent';
+import NotFoundContent from '../widgets/pagesContent/NotFoundContent';
 import Footer from '../widgets/Footer';
 import '../../css/App.css';
 

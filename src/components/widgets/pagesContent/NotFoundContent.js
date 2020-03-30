@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import { Container, Row, Col } from "react-bootstrap";
 import {Zoom} from '@material-ui/core'
-import Logo from '../widgets/subContent/Logo'
-import '../../css/App.css';
+import Logo from '../subContent/Logo'
+import '../../../css/App.css';
 
 class NotFoundContent extends Component {
     constructor(props) {
