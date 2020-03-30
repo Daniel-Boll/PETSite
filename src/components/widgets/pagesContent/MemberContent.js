@@ -45,6 +45,7 @@ class MemberContent extends Component {
                 <Row onLoad={this.handleLoad} xs={1} md={2}>
                     <Col>
                         <h1 align="center" style={{color: "white", fontSize: "65px"}}>PETIANOS</h1>
+                        <br></br><br></br><br></br>
                     </Col>
                 </Row>
                 {members

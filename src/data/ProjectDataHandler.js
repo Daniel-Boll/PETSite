@@ -1,16 +1,17 @@
 import * as firebase from "firebase/app";
 import "firebase/database";
+import {Projeto} from '../objects/Projeto'
 
-const pathMembers = 'Projects';
+const pathProjects = 'Projects';
 
 class ProjectDataHandler {
     
-    // Função para pegar todos os membros
+    // Função para pegar todos os projetos
 
-    static async getAllMembers() {
+    static async getAllProjects() {
         let data = (await firebase
             .database()
-            .ref(pathMembers)
+            .ref(pathProjects)
             .once('value'))
             .val();
         
@@ -21,67 +22,58 @@ class ProjectDataHandler {
         let ret = [];
         
         for(var id in data) {
-          ret.push(this.formatMemberFromDb(id, data[id]));
+          ret.push(this.formatProjectFromDb(id, data[id]));
         }
         
         return ret;
     }
 
-    // Inserir ID no member
+    // Inserir ID no Project
     
-    static formatMemberFromDb(dbId, dbMember) {
-      dbMember.id = dbId;
-      return dbMember;
+    static formatProjectFromDb(dbId, dbProject) {
+      dbProject.id = dbId;
+      return dbProject;
     }
 
-    // Pegar um membro pelo ID
+    // Pegar um projeto pelo ID
     
-    static async getMemberFromId(idMember) {
+    static async getProjectFromId(idProject) {
         let data = (await firebase
             .database()
-            .ref(pathMembers)
-            .child(idMember)
+            .ref(pathProjects)
+            .child(idProject)
             .once('value'))
             .val();
         
-        return this.formatMemberFromDb(idMember, data);
+        return this.formatProjectFromDb(idProject, data);
     }
 
-    // Atualizar membro
+    // Atualizar projeto
     
-    static async updateMember(Member) {
+    static async updateProject(Project) {
       return firebase
           .database()
-          .ref(pathMembers)
-          .child(Member.id)
-          .set(Member);
+          .ref(pathProjects)
+          .child(Project.id)
+          .set(Project);
     }
 
     // Popular o banco
     
-    static populateDatabase(memberInfo) {
-      let members = [
-        Membro(
-                memberInfo.nome,
-                memberInfo.descricao,
-                memberInfo.email,
-                memberInfo.lattes,
-                ICV(
-                    memberInfo.icv.ano,
-                    memberInfo.icv.titulo,
-                    memberInfo.icv.orientador,
-                    memberInfo.icv.descricao
-                    // null
-                )
+    static populateDatabase(projectInfo) {
+      let projects = [
+        Projeto(
+          projectInfo.nomeP,
+          projectInfo.descricaoP
         )
       ];
 
-      for(var member of members) {      
+      for(var project of projects) {      
         firebase
           .database()
-          .ref(pathMembers)
+          .ref(pathProjects)
           .push()
-          .set(member);
+          .set(project);
       }
     }
 }
