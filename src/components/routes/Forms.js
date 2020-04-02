@@ -4,10 +4,11 @@ import {Edit} from '@material-ui/icons'
 import Loading from '../widgets/Loading'
 import DataHandler from '../../data/MemberDataHandler'
 import DataHandlerP from '../../data/ProjectDataHandler'
-
+import * as filestack from 'filestack-js';
 class Forms extends Component {
     constructor(props){
         super(props);
+        console.log(props.isLoggedIn);
         this.state = {
             modalShowMember: false,
             modalShowProject: false,
@@ -17,6 +18,7 @@ class Forms extends Component {
             descricao: '',
             email: '',
             lattes: '',
+            foto: '',
             icv: {
                 ano: '',
                 titulo: '',
@@ -106,6 +108,21 @@ class Forms extends Component {
             modalShowProject: state
         })
     }
+
+    uploadImage = () => {
+        const apikey = 'ApvO7wrqsQeWNVacJ2GJcz';
+        const client = filestack.init(apikey);
+        const options = {
+            maxFiles: 20,
+            uploadInBackground: false,
+            onOpen: () => console.log('opened!'),
+            onUploadDone: (res) => {
+                let url = res.filesUploaded[0].url
+                this.setState({foto: url});
+            }
+        };
+        client.picker(options).open();
+    }
     
     render() {
         const {modalShowMember, modalShowProject} = this.state;
@@ -182,6 +199,7 @@ class Forms extends Component {
                             </Card.Body>
                         </Card>
                     </div>
+                    {/* Modal de Membros */}
                     <Modal
                         show={modalShowMember}
                         size="lg"
@@ -273,7 +291,9 @@ class Forms extends Component {
                                                 />
                                             </Col>
                                         </Form.Row>
-                                        
+                                    <Button variant="success" onClick={this.uploadImage}>
+                                        Upload Imagem
+                                    </Button>
                                     </Form.Group>
                                     <Button variant="success" onClick={this.handleInsert}>
                                         Cadastrar Petiano

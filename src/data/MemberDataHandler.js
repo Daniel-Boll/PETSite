@@ -67,6 +67,7 @@ class MemberDataHandler {
                 memberInfo.descricao,
                 memberInfo.email,
                 memberInfo.lattes,
+                memberInfo.foto,
                 ICV(
                     memberInfo.icv.ano,
                     memberInfo.icv.titulo,

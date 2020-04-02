@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Image } from "react-bootstrap";
 import {Zoom} from '@material-ui/core'
 import DataHandler from '../../../data/MemberDataHandler';
 import Loading from '../Loading';
@@ -42,7 +42,7 @@ class MemberContent extends Component {
 
         return (
             <>
-                <Row onLoad={this.handleLoad} xs={1} md={2}>
+                <Row onLoad={this.handleLoad} >
                     <Col>
                         <h1 align="center" style={{color: "white", fontSize: "65px"}}>PETIANOS</h1>
                         <br></br><br></br><br></br>
@@ -55,6 +55,7 @@ class MemberContent extends Component {
                             <Container>
                                 <Row onLoad={this.handleLoad} xs={1} md={2}>
                                     <Col>
+                                        {console.log(index)}
                                         {index % 2 === 0
                                             ?   // If true
                                                 <div align="left">   
@@ -74,15 +75,15 @@ class MemberContent extends Component {
 
                                             :   // If false
                                                 <div align="center">   
-                                                    <h1 align="center" style={{color: "white"}}>Foto</h1>
+                                                    <Image width="171px" height="180px" src={member.foto} roundedCircle />
                                                 </div>
                                         }
                                     </Col>
                                     <Col>
                                         {index % 2 === 0
                                             ?   // If true
-                                                <div align="left">   
-                                                    <h1 align="center" style={{color: "white"}}>Foto</h1>
+                                                <div align="center">   
+                                                    <Image width="171px" height="180px" src={member.foto} roundedCircle />
                                                 </div>
                                             :   // If false
                                                 <div align="left">   

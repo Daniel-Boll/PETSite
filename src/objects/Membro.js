@@ -3,6 +3,7 @@ function Membro(
     descricao,  // String descrição (breve) do ICV
     email,      // String com o e-mail
     lattes,     // String com link do lattes
+    foto,       // String com a URL do CDN Filestack
     icv         // Array com (Ano, Título ICV, Orientador, Descrição completa, Local de publicação, ICVs passados)
 ) {
     return {
@@ -10,6 +11,7 @@ function Membro(
         descricao,
         email,
         lattes,
+        foto,
         icv
     };
 }

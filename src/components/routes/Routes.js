@@ -4,7 +4,7 @@ import NotFound from './NotFound';
 import Home from './Home';
 import Member from './Member';
 import Project from './Project';
-import Forms from './Forms';
+import Authentication from './Authentication';
 
 const Routes = () => {
     return (
@@ -13,7 +13,7 @@ const Routes = () => {
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/Member" component={Member}/>
                 <Route exact path="/Project" component={Project}/>
-                <Route exact path="/Forms" component={Forms}/>
+                <Route exact path="/Forms" render={() => <Authentication isLoggedIn={false}/>}/>
                 <Route path="/*" component={NotFound}/>
             </Switch>
         </BrowserRouter>
