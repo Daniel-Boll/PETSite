@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
+import ReactDOM from 'react-dom'
 import {Row, Col, Container, Form, Button, Card} from 'react-bootstrap'
 import * as firebase from "firebase/app";
+import Authentication from '../routes/Authentication'
+import Forms from '../routes/Forms'
 import "firebase/auth";
 class Login extends Component {
 
@@ -9,7 +12,8 @@ class Login extends Component {
         this.state = {
             user: '',
             password: '',
-            authentication: {}
+            authentication: {},
+            isLoggedIn: false
         }
     }
 
@@ -18,7 +22,8 @@ class Login extends Component {
         this.setState({
             authentication: {
                 user: 'admin',
-                password: '123'
+                password: '123',
+                isLoggedIn: false
             }
         });
     }
@@ -38,7 +43,7 @@ class Login extends Component {
     handleAuthentication = () => {
         let email = this.state.user;
         let password = this.state.password
-
+        console.log("function called");
         // To Sign Up
 
         // firebase.auth().createUserWithEmailAndPassword(email, password)
@@ -57,65 +62,71 @@ class Login extends Component {
         // To Sign In 
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(result => {
-            window.alert("Logged in");
+            this.setState({
+                isLoggedIn: true
+            })
+            this.forceUpdate();
         })
         .catch(error => {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            window.alert(errorCode);
-            window.alert(errorMessage);
-            // ...
-          });
+            return <Authentication isLoggedIn={false}/>     
+
+        });
           
     }
 
     render(){
-        return(
-            <>
-            <Container>
-                <Row>
-                    <Col className="p-5 text-center">
-                    <h1 style={{color: "white", fontSize: "60px"}}><b>Login</b></h1>
-                    </Col>
-                </Row>
-            </Container>
-            <Container>
-                <Row>
-                    <Col></Col>
+        const {isLoggedIn} = this.state;
+        if(isLoggedIn){
+            return(
+                <Forms/>
+            )
+        }else{
+            return(
+                <>
+                <Container>
+                    <Row>
+                        <Col className="p-5 text-center">
+                        <h1 style={{color: "white", fontSize: "60px"}}><b>Login</b></h1>
+                        </Col>
+                    </Row>
+                </Container>
+                <Container>
+                    <Row>
+                        <Col></Col>
 
-                    <Col xs="6">
-                        <Card
-                            style={{ overflowX: "auto" }}
-                            body
-                        >
-                            <Form>
-                                <Form.Group controlId="formBasicUser">
-                                    <Form.Label>Usuário</Form.Label>
-                                    <Form.Control type="user" placeholder="Insira usuário" onChange={this.handleUser} required/>
-                                    <Form.Text className="text-muted">
-                                        Usuário informado pelo tutor.
-                                    </Form.Text>
-                                </Form.Group>
+                        <Col xs="6">
+                            <Card
+                                style={{ overflowX: "auto" }}
+                                body
+                            >
+                                <Form>
+                                    <Form.Group controlId="formBasicUser">
+                                        <Form.Label>Usuário</Form.Label>
+                                        <Form.Control type="user" placeholder="Insira usuário" onChange={this.handleUser} required/>
+                                        <Form.Text className="text-muted">
+                                            Usuário informado pelo tutor.
+                                        </Form.Text>
+                                    </Form.Group>
 
-                                <Form.Group controlId="formBasicPassword">
-                                    <Form.Label>Senha</Form.Label>
-                                    <Form.Control type="password" placeholder="Insira senha" onChange={this.handlePassword} required/>
-                                    <Form.Text className="text-muted">
-                                        Senha informada pelo tutor.
-                                    </Form.Text>
-                                </Form.Group>
-                                <Button variant="primary" onClick={this.handleAuthentication}>
-                                    Login
-                                </Button>
-                            </Form>
-                        </Card>
-                    </Col>
-                    <Col></Col>
-                </Row>
-            </Container>
-            </>
-        )
+                                    <Form.Group controlId="formBasicPassword">
+                                        <Form.Label>Senha</Form.Label>
+                                        <Form.Control type="password" placeholder="Insira senha" onChange={this.handlePassword} required/>
+                                        <Form.Text className="text-muted">
+                                            Senha informada pelo tutor.
+                                        </Form.Text>
+                                    </Form.Group>
+                                    <Button variant="primary" onClick={this.handleAuthentication}>
+                                        Login
+                                    </Button>
+                                </Form>
+                            </Card>
+                        </Col>
+                        <Col></Col>
+                    </Row>
+                </Container>
+                </>
+            )
+        }
     }
 }
 

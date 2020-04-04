@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
+
 import {Row, Col, Table, Card, Container, Button, Modal, Form} from 'react-bootstrap'
 import {Edit} from '@material-ui/icons'
+
 import Loading from '../widgets/Loading'
+
 import DataHandler from '../../data/MemberDataHandler'
 import DataHandlerP from '../../data/ProjectDataHandler'
+
 import * as filestack from 'filestack-js';
+
 class Forms extends Component {
     constructor(props){
         super(props);
-        console.log(props.isLoggedIn);
         this.state = {
             modalShowMember: false,
             modalShowProject: false,
