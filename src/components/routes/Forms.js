@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 
 import {Row, Col, Table, Card, Container, Button, Modal, Form} from 'react-bootstrap'
-import {Edit} from '@material-ui/icons'
+import {Edit, Delete} from '@material-ui/icons'
 
 import Loading from '../widgets/Loading'
 
 import DataHandler from '../../data/MemberDataHandler'
 import DataHandlerP from '../../data/ProjectDataHandler'
 
-import * as filestack from 'filestack-js';
+import memberModalInfo from '../../variables/memberModalInfo';
 
-class Forms extends Component {
+import * as filestack from 'filestack-js';
+/* eslint-disable */
+class Forms extends Component{
     constructor(props){
         super(props);
         this.state = {
@@ -29,15 +31,18 @@ class Forms extends Component {
                 orientador: '',
                 descricao: ''
             },
+            id: '',
             members: [],
             projects: [],
-            loading: true
+            loading: true,
+            edit: false
         }
     }
 
     async componentDidMount() {
         let members = await DataHandler.getAllMembers();
         let projects = await DataHandlerP.getAllProjects();
+        
         this.setState({
             loading: false,
             members,
@@ -88,6 +93,11 @@ class Forms extends Component {
         DataHandler.populateDatabase(this.state);
     }
 
+    handleUpdate = () => {
+        window.alert("Petiano atualizado no banco de dados");
+        DataHandler.updateDatabase(this.state);
+    }
+
     handleInsertProject = () => {
         window.alert("Projeto adicionado ao banco de dados");
         DataHandlerP.populateDatabase(this.state);
@@ -102,16 +112,79 @@ class Forms extends Component {
     }
 
     setModalShowMember = state => {
+        if(!state)
+            this.cleanMInfo();
         this.setState({
             modalShowMember: state
         })
     }
     
     setModalShowProject = state => {
+        if(!state)
+            this.cleanMInfo();
         this.setState({
             modalShowProject: state
         })
     }
+
+    cleanMInfo = () => {
+        this.setState({
+            nome: '',
+            descricao: '',
+            email: '',
+            lattes: '',
+            icv: {
+                ano: '',
+                titulo: '',
+                orientador: '',
+                descricao: ''            
+            },
+            edit: false,
+            id: ''
+        });
+        // memberModalInfo.nome = ""
+        // memberModalInfo.descricao = ""
+        // memberModalInfo.email = ""
+        // memberModalInfo.lattes = ""
+        // memberModalInfo.icv.ano = ""
+        // memberModalInfo.icv.titulo = ""
+        // memberModalInfo.icv.orientador = ""
+        // memberModalInfo.icv.descricao = ""
+        // memberModalInfo.edit = false
+    }
+
+    handleEditM = member => {
+        this.setState({
+            nome: member.nome,
+            descricao: member.descricao,
+            email: member.email,
+            lattes: member.lattes,
+            icv: {
+                ano: member.icv.year,
+                titulo: member.icv.title,
+                orientador: member.icv.advisor,
+                descricao: member.icv.description            
+            },
+            edit: true,
+            id: member.id
+        });
+        // memberModalInfo.nome = member.nome
+        // memberModalInfo.descricao = member.descricao
+        // memberModalInfo.email = member.email
+        // memberModalInfo.lattes = member.lattes
+        // memberModalInfo.icv.ano = member.icv.year
+        // memberModalInfo.icv.titulo = member.icv.title
+        // memberModalInfo.icv.orientador = member.icv.advisor
+        // memberModalInfo.icv.descricao = member.icv.description
+        // memberModalInfo.edit = true
+        this.setModalShowMember(true);
+    }
+    
+    handleDeleteM = member => {
+        window.alert("Editar");
+        console.log(member);
+    }
+
 
     uploadImage = () => {
         const apikey = 'ApvO7wrqsQeWNVacJ2GJcz';
@@ -127,10 +200,11 @@ class Forms extends Component {
         };
         client.picker(options).open();
     }
-    
+
     render() {
         const {modalShowMember, modalShowProject} = this.state;
-        const {members, projects} = this.state
+        const {members, projects} = this.state;
+        
         if (this.state.loading) {
             return (
                 <Container>
@@ -161,6 +235,7 @@ class Forms extends Component {
                                                         <th>E-mail</th>
                                                         <th>Lattes</th>
                                                         <th>Editar</th>
+                                                        <th>Excluir</th>
                                                     </tr>
                                                 </thead>
                                                 {members
@@ -171,7 +246,8 @@ class Forms extends Component {
                                                             <td>{member.descricao}</td>
                                                             <td>{member.email}</td>
                                                             <td>{member.lattes}</td>
-                                                            <td><Edit/></td>
+                                                            <td><Edit className="Edit" onClick={() => this.handleEditM(member)}/></td>
+                                                            <td><Delete className="Delete"  onClick={() => this.handleDeleteM(member)}/></td>
                                                         </tbody>
                                                  </>))}
                                             </Table>
@@ -185,6 +261,7 @@ class Forms extends Component {
                                                         <th>Nome</th>
                                                         <th>Descrição</th>
                                                         <th>Editar</th>
+                                                        <th>Excluir</th>
                                                     </tr>
                                                 </thead>
                                                 {projects
@@ -193,7 +270,8 @@ class Forms extends Component {
                                                             <td>{index}</td>
                                                             <td>{project.nome}</td>
                                                             <td>{project.descricao}</td>
-                                                            <td><Edit/></td>
+                                                            <td><Edit className="Edit"/></td>
+                                                            <td><Delete className="Delete"/></td>
                                                         </tbody>
                                                  </>))}
                                             </Table>
@@ -224,6 +302,7 @@ class Forms extends Component {
                                             required
                                             type="text"
                                             placeholder="Nome do Petiano"
+                                            value={this.state.nome}
                                             onChange={this.handleNameChange}
                                         />
                                     </Form.Group>
@@ -233,6 +312,7 @@ class Forms extends Component {
                                             required
                                             type="text"
                                             placeholder="Descrição do ICV do Petiano"
+                                            value={this.state.descricao}
                                             onChange={this.handleDescriptionChange}
                                         />
                                     </Form.Group>
@@ -242,6 +322,7 @@ class Forms extends Component {
                                             required
                                             type="text"
                                             placeholder="E-mail do Petiano"
+                                            value={this.state.email}
                                             onChange={this.handleEmailChange}
                                         />
                                     </Form.Group>
@@ -251,6 +332,7 @@ class Forms extends Component {
                                             required
                                             type="text"
                                             placeholder="Link para o lattes do Petiano"
+                                            value={this.state.lattes}
                                             onChange={this.handleLattesChange}
                                         />
                                     </Form.Group>
@@ -263,6 +345,7 @@ class Forms extends Component {
                                                     required
                                                     type="text"
                                                     placeholder="Ano de realização do ICV"
+                                                    value={this.state.icv.ano}
                                                     onChange={this.handleICVYearChange}
                                                 />
                                             </Col>
@@ -272,6 +355,7 @@ class Forms extends Component {
                                                     required
                                                     type="text"
                                                     placeholder="Título do ICV"
+                                                    value={this.state.icv.titulo}
                                                     onChange={this.handleICVTitleChange}
                                                 />
                                             </Col>
@@ -283,6 +367,7 @@ class Forms extends Component {
                                                     required
                                                     type="text"
                                                     placeholder="Orientador do ICV"
+                                                    value={this.state.icv.orientador}
                                                     onChange={this.handleICVAdvisorChange}
                                                 />
                                             </Col>
@@ -291,17 +376,19 @@ class Forms extends Component {
                                                     required
                                                     type="text"
                                                     placeholder="Descrição do ICV"
+                                                    value={this.state.icv.descricao}
                                                     onChange={this.handleICVDescriptionChange}
                                                 />
                                             </Col>
-                                        </Form.Row>
+                                        </Form.Row><br></br>
                                     <Button variant="success" onClick={this.uploadImage}>
                                         Upload Imagem
                                     </Button>
                                     </Form.Group>
-                                    <Button variant="success" onClick={this.handleInsert}>
-                                        Cadastrar Petiano
-                                    </Button>
+                                    {(this.state.edit) 
+                                    ? <Button variant="success" onClick={this.handleUpdate}>Atualizar Petiano</Button>
+                                    : <Button variant="success" onClick={this.handleInsert}>Cadastrar Petiano</Button>
+                                    } 
                                 </Form>
 
                             </div>

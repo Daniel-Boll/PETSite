@@ -1,5 +1,4 @@
 import React, {Component} from 'react'
-import ReactDOM from 'react-dom'
 import {Row, Col, Container, Form, Button, Card} from 'react-bootstrap'
 import * as firebase from "firebase/app";
 import Authentication from '../routes/Authentication'

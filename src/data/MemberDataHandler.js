@@ -60,6 +60,46 @@ class MemberDataHandler {
 
     // Popular o banco
     
+    static updateDatabase(memberInfo) {
+      // var memberRef = firebase.child(pathMembers+'/'+memberInfo.id);
+      // memberRef.update({
+      //   nome: memberInfo.nome,
+      //   descricao: memberInfo.descricao,
+      //   foto: memberInfo.foto,
+      //   lattes: memberInfo.lattes,
+      //   icv:{
+      //     year: memberInfo.icv.ano,
+      //     title: memberInfo.icv.titulo,
+      //     description: memberInfo.icv.descricao,
+      //     advisor: memberInfo.icv.orientador
+      //   }
+      // });
+      
+      let members = [
+        Membro(
+                memberInfo.nome,
+                memberInfo.descricao,
+                memberInfo.email,
+                memberInfo.lattes,
+                memberInfo.foto,
+                ICV(
+                    memberInfo.icv.ano,
+                    memberInfo.icv.titulo,
+                    memberInfo.icv.orientador,
+                    memberInfo.icv.descricao
+                    // null
+                )
+        )
+      ];
+
+      for(var member of members) {   
+        firebase
+          .database()
+          .ref(pathMembers+'/'+memberInfo.id)
+          .update(member);
+      }
+    }
+
     static populateDatabase(memberInfo) {
       let members = [
         Membro(

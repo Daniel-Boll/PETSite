@@ -13,7 +13,7 @@ const Routes = () => {
                 <Route exact path="/" component={Home}/>
                 <Route exact path="/Member" component={Member}/>
                 <Route exact path="/Project" component={Project}/>
-                <Route exact path="/Forms" render={() => <Authentication isLoggedIn={false}/>}/>
+                <Route exact path="/Forms" render={() => <Authentication isLoggedIn={true}/>}/>
                 <Route path="/*" component={NotFound}/>
             </Switch>
         </BrowserRouter>

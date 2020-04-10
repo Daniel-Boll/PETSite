@@ -75,7 +75,7 @@ class MemberContent extends Component {
 
                                             :   // If false
                                                 <div align="center">   
-                                                    <Image width="171px" height="180px" src={member.foto} roundedCircle />
+                                                    <Image width="180px" height="180px" src={member.foto} roundedCircle />
                                                 </div>
                                         }
                                     </Col>

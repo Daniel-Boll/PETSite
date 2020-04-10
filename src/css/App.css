@@ -6,3 +6,21 @@ body { margin: 0px; min-height: 100%; width: 100%; }
     background: -webkit-linear-gradient(to right, #4A00E0, #8E2DE2) !important;  /* Chrome 10-25, Safari 5.1-6 */
     background: linear-gradient(to right, #4A00E0, #8E2DE2) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
+
+.Edit {
+    cursor: pointer;
+    color: black
+}
+
+.Edit:hover{
+    color: blue
+}
+
+.Delete {
+    cursor: pointer;
+    color: black
+}
+
+.Delete:hover{
+    color: red
+}
