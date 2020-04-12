@@ -34,7 +34,10 @@ class ProjectContent extends Component {
         const {projects, checked} = this.state
         if (this.state.loading) {
             return (
-                <Container>
+                <Container style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}>
                     <Loading/>
                 </Container>
             );

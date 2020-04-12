@@ -17,7 +17,7 @@ class Member extends Component {
                     <ProjectContent/>
                 </Container>
 
-                <Container style={{ paddingLeft: 0, paddingRight: 0}}>
+                <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
                     <Footer/>
                 </Container>
             </>

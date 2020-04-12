@@ -1,15 +1,12 @@
 import React from 'react';
 import logo from '../../assets/logoC.png'
-import {Row, Col} from 'react-bootstrap'
 import '../../css/loadingCSS.css'
 
 const Loading = (props) => {
   return (
     <>
-      <Row>
-        <Col>
           <div align="center">
-            <h1 style={{color: "white"}}>Carregando</h1>
+            {/* <h1 style={{color: "white"}}>Carregando</h1> */}
             <img
                 className="image"
                 width={"42px"}
@@ -17,8 +14,7 @@ const Loading = (props) => {
                 alt="PETLogo"
             />{' '}
           </div>
-        </Col>
-      </Row>
+          <br></br><br></br><br></br><br></br><br></br><br></br><br></br><br></br>
     </>
   );
 };

@@ -8,10 +8,7 @@ import Loading from '../widgets/Loading'
 import DataHandler from '../../data/MemberDataHandler'
 import DataHandlerP from '../../data/ProjectDataHandler'
 
-import memberModalInfo from '../../variables/memberModalInfo';
-
 import * as filestack from 'filestack-js';
-/* eslint-disable */
 class Forms extends Component{
     constructor(props){
         super(props);
@@ -32,10 +29,12 @@ class Forms extends Component{
                 descricao: ''
             },
             id: '',
+            idP: '',
             members: [],
             projects: [],
             loading: true,
-            edit: false
+            edit: false,
+            editP: false
         }
     }
 
@@ -91,16 +90,25 @@ class Forms extends Component{
     handleInsert = () => {
         window.alert("Petiano adicionado ao banco de dados");
         DataHandler.populateDatabase(this.state);
+        this.componentDidMount();
     }
 
     handleUpdate = () => {
         window.alert("Petiano atualizado no banco de dados");
         DataHandler.updateDatabase(this.state);
+        this.componentDidMount();
     }
 
     handleInsertProject = () => {
         window.alert("Projeto adicionado ao banco de dados");
         DataHandlerP.populateDatabase(this.state);
+        this.componentDidMount();
+    }
+
+    handleUpdateProject = () => {
+        window.alert("Projeto atualizado no banco de dados");
+        DataHandlerP.updateDatabase(this.state);
+        this.componentDidMount();
     }
 
     handleNameChangeProject = e => {
@@ -121,7 +129,7 @@ class Forms extends Component{
     
     setModalShowProject = state => {
         if(!state)
-            this.cleanMInfo();
+            this.cleanPInfo();
         this.setState({
             modalShowProject: state
         })
@@ -142,15 +150,15 @@ class Forms extends Component{
             edit: false,
             id: ''
         });
-        // memberModalInfo.nome = ""
-        // memberModalInfo.descricao = ""
-        // memberModalInfo.email = ""
-        // memberModalInfo.lattes = ""
-        // memberModalInfo.icv.ano = ""
-        // memberModalInfo.icv.titulo = ""
-        // memberModalInfo.icv.orientador = ""
-        // memberModalInfo.icv.descricao = ""
-        // memberModalInfo.edit = false
+    }
+
+    cleanPInfo = () => {
+        this.setState({
+            nomeP: '',
+            descricaoP: '',
+            editP: false,
+            idP: ''
+        });
     }
 
     handleEditM = member => {
@@ -168,21 +176,49 @@ class Forms extends Component{
             edit: true,
             id: member.id
         });
-        // memberModalInfo.nome = member.nome
-        // memberModalInfo.descricao = member.descricao
-        // memberModalInfo.email = member.email
-        // memberModalInfo.lattes = member.lattes
-        // memberModalInfo.icv.ano = member.icv.year
-        // memberModalInfo.icv.titulo = member.icv.title
-        // memberModalInfo.icv.orientador = member.icv.advisor
-        // memberModalInfo.icv.descricao = member.icv.description
-        // memberModalInfo.edit = true
         this.setModalShowMember(true);
     }
     
-    handleDeleteM = member => {
-        window.alert("Editar");
-        console.log(member);
+    handleDelete = member => {
+        var want = window.confirm("Quer mesmo deleter o membro "+ member.nome);
+
+        if(want == (+[]-[]+!+[]*!+[]*!![]-![])){
+            if(DataHandler.deleteMember(member.id)){
+                alert("Petiano deletado");
+                this.componentDidMount();
+            }else{
+                alert("Falha ao deletar petiano");
+            }
+        }
+        else{
+            alert("Operação cancelada");
+        } 
+    }
+
+    handleEditP = project => {
+        this.setState({
+            nomeP: project.nome,
+            descricaoP: project.descricao,
+            editP: true,
+            idP: project.id
+        });
+        this.setModalShowProject(true);
+    }
+    
+    handleDeleteP = project => {
+        var want = window.confirm("Quer mesmo deleter o projeto "+ project.nome);
+
+        if(want == (+[]-[]+!+[]*!+[]*!![]-![])){
+            if(DataHandlerP.deleteProject(project.id)){
+                alert("Projeto deletado");
+                this.componentDidMount();
+            }else{
+                alert("Falha ao deletar projeto");
+            }
+        }
+        else{
+            alert("Operação cancelada");
+        } 
     }
 
 
@@ -247,7 +283,7 @@ class Forms extends Component{
                                                             <td>{member.email}</td>
                                                             <td>{member.lattes}</td>
                                                             <td><Edit className="Edit" onClick={() => this.handleEditM(member)}/></td>
-                                                            <td><Delete className="Delete"  onClick={() => this.handleDeleteM(member)}/></td>
+                                                            <td><Delete className="Delete"  onClick={() => this.handleDelete(member)}/></td>
                                                         </tbody>
                                                  </>))}
                                             </Table>
@@ -270,8 +306,8 @@ class Forms extends Component{
                                                             <td>{index}</td>
                                                             <td>{project.nome}</td>
                                                             <td>{project.descricao}</td>
-                                                            <td><Edit className="Edit"/></td>
-                                                            <td><Delete className="Delete"/></td>
+                                                            <td><Edit className="Edit" onClick={() => this.handleEditP(project)}/></td>
+                                                            <td><Delete className="Delete"  onClick={() => this.handleDeleteP(project)}/></td>
                                                         </tbody>
                                                  </>))}
                                             </Table>
@@ -311,7 +347,7 @@ class Forms extends Component{
                                         <Form.Control
                                             required
                                             type="text"
-                                            placeholder="Descrição do ICV do Petiano"
+                                            placeholder="Descrição do Petiano"
                                             value={this.state.descricao}
                                             onChange={this.handleDescriptionChange}
                                         />
@@ -419,6 +455,7 @@ class Forms extends Component{
                                             required
                                             type="text"
                                             placeholder="Nome do Projeto"
+                                            value={this.state.nomeP}
                                             onChange={this.handleNameChangeProject}
                                         />
                                     </Form.Group>
@@ -427,13 +464,15 @@ class Forms extends Component{
                                         <Form.Control
                                             required
                                             type="text"
+                                            value={this.state.descricaoP}
                                             placeholder="Descrição do Projeto"
                                             onChange={this.handleDescriptionChangeProject}
                                         />
                                     </Form.Group>
-                                    <Button variant="success" onClick={this.handleInsertProject}>
-                                        Cadastrar Projeto
-                                    </Button>
+                                    {(this.state.editP) 
+                                    ? <Button variant="success" onClick={this.handleUpdateProject}>Atualizar Projeto</Button>
+                                    : <Button variant="success" onClick={this.handleInsertProject}>Cadastrar Projeto</Button>
+                                    } 
                                 </Form>
                             </div>
                         </Modal.Body>

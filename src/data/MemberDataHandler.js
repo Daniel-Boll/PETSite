@@ -48,33 +48,16 @@ class MemberDataHandler {
         return this.formatMemberFromDb(idMember, data);
     }
 
-    // Atualizar membro
-    
-    static async updateMember(Member) {
+    static deleteMember(memberId) {
       return firebase
-          .database()
-          .ref(pathMembers)
-          .child(Member.id)
-          .set(Member);
+              .database()
+              .ref(pathMembers+'/' + memberId)
+              .remove();
     }
 
     // Popular o banco
     
-    static updateDatabase(memberInfo) {
-      // var memberRef = firebase.child(pathMembers+'/'+memberInfo.id);
-      // memberRef.update({
-      //   nome: memberInfo.nome,
-      //   descricao: memberInfo.descricao,
-      //   foto: memberInfo.foto,
-      //   lattes: memberInfo.lattes,
-      //   icv:{
-      //     year: memberInfo.icv.ano,
-      //     title: memberInfo.icv.titulo,
-      //     description: memberInfo.icv.descricao,
-      //     advisor: memberInfo.icv.orientador
-      //   }
-      // });
-      
+    static updateDatabase(memberInfo) {     
       let members = [
         Membro(
                 memberInfo.nome,

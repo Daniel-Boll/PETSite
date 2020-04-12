@@ -48,17 +48,30 @@ class ProjectDataHandler {
         return this.formatProjectFromDb(idProject, data);
     }
 
-    // Atualizar projeto
-    
-    static async updateProject(Project) {
+    static deleteProject(projectId) {
       return firebase
-          .database()
-          .ref(pathProjects)
-          .child(Project.id)
-          .set(Project);
+              .database()
+              .ref(pathProjects+'/' + projectId)
+              .remove();
     }
 
     // Popular o banco
+    
+    static updateDatabase(projectInfo) {     
+      let projects = [
+        Projeto(
+          projectInfo.nomeP,
+          projectInfo.descricaoP
+        )
+      ];
+
+      for(var project of projects) {   
+        firebase
+          .database()
+          .ref(pathProjects+'/'+projectInfo.idP)
+          .update(project);
+      }
+    }
     
     static populateDatabase(projectInfo) {
       let projects = [
