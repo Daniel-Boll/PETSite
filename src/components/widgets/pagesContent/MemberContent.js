@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Container, Row, Col, Image } from "react-bootstrap";
+import { Container, Row, Col, Image, Modal, Button } from "react-bootstrap";
 import {Zoom} from '@material-ui/core'
 import DataHandler from '../../../data/MemberDataHandler';
 import Loading from '../Loading';
@@ -12,6 +12,11 @@ class MemberContent extends Component {
             loading: true,
             checked: false,
             members: [],
+            modalShowICV: false,
+            advisor: '',
+            description: '',
+            year: '',
+            title: ''
         };
     }
 
@@ -30,8 +35,35 @@ class MemberContent extends Component {
         })
     }
 
+    setModalShowICV = state => {
+        if(!state)
+            this.cleanICVInfo();
+        this.setState({
+            modalShowICV: state
+        })
+    }
+
+    getICVInfo = icv => {
+        let {year, advisor, description, title} = icv;
+        this.setState({
+            advisor: advisor,
+            year: year,
+            description: description,
+            title: title
+        });
+    }
+
+    cleanICVInfo = () => {
+        this.setState({
+            advisor: '',
+            description: '',
+            year: '',
+            title: ''
+        })
+    }
+
     render() {
-        const {members, checked} = this.state
+        const {members, checked, modalShowICV} = this.state
         if (this.state.loading) {
             return (
                 <Container>
@@ -69,7 +101,13 @@ class MemberContent extends Component {
                                                         </p>
                                                         <a href={member.lattes} style={{color: "yellow"}}>
                                                             Currículo Lattes
-                                                        </a>
+                                                        </a><br></br>
+                                                        <p style={{color: "yellow", cursor: "pointer"}} onClick={() => {
+                                                                this.getICVInfo(member.icv);
+                                                                this.setModalShowICV(true);
+                                                            }}>
+                                                            ICV
+                                                        </p>
                                                     </div>
                                                 </div>
 
@@ -98,10 +136,48 @@ class MemberContent extends Component {
                                                         <a href={member.lattes} style={{color: "yellow"}}>
                                                             Currículo Lattes
                                                         </a>
+                                                        <p style={{color: "yellow", cursor: "pointer"}} onClick={() => {
+                                                                this.getICVInfo(member.icv);
+                                                                this.setModalShowICV(true);
+                                                            }}>
+                                                            ICV
+                                                        </p>
                                                     </div>
                                                 </div>
                                         }
                                     </Col>
+                                    {/* Modal Projeto */}
+                                    <Modal
+                                        show={modalShowICV}
+                                        size="lg"
+                                        aria-labelledby="contained-modal-title-vcenter"
+                                        centered
+                                        >
+                                        <Modal.Header closeButton>
+                                            <Modal.Title id="contained-modal-title-vcenter">
+                                                ICV DO PETIANO
+                                            </Modal.Title>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <div align="center">
+                                                <h1>{this.state.title}</h1>
+                                                <Row>
+                                                    <Col>
+                                                        <p>{this.state.description}</p>
+                                                    </Col>
+                                                </Row>
+                                                <Row>
+                                                    <Col>
+                                                        <p><b>{this.state.advisor}</b></p>
+                                                        <p><b>{this.state.year}</b></p>
+                                                    </Col>
+                                                </Row>
+                                            </div>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <Button onClick={() => this.setModalShowICV(false)}>Close</Button>
+                                        </Modal.Footer>
+                                    </Modal>
                                 </Row><br></br><br></br><br></br><br></br>
                             </Container>
                         </Zoom>
