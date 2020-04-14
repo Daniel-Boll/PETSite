@@ -16,7 +16,8 @@ class MemberContent extends Component {
             advisor: '',
             description: '',
             year: '',
-            title: ''
+            title: '',
+            onSmartView: false
         };
     }
 
@@ -84,7 +85,7 @@ class MemberContent extends Component {
     }
 
     render() {
-        const { members, checked, modalShowICV, fontSizeTitle } = this.state
+        const { members, checked, modalShowICV, fontSizeTitle, onSmartView } = this.state
         if (this.state.loading) {
             return (
                 <Container>
@@ -106,66 +107,46 @@ class MemberContent extends Component {
                         <Zoom in={checked} style={{transitionDelay: checked ? index*"250"+"ms" : '0ms'}}>
                             <Container>
                                 <Row onLoad={this.handleLoad} xs={1} md={2}>
+                                {(index % 2 === 0 || onSmartView) ?
+                                        <Col>
+                                            <div align="center">   
+                                                <Image width="180px" height="180px" src={member.foto} roundedCircle />
+                                            </div>
+                                        </Col>
+                                        :
+                                        <></>
+                                    }
                                     <Col>
-                                        {console.log(index)}
-                                        {index % 2 === 0
-                                            ?   // If true
-                                                <div align="left">   
-                                                    <h1 align="center" style={{color: "white"}}>{member.nome}</h1>
-                                                    <div align="center">
-                                                        <p style={{color: "white"}}>
-                                                            {member.descricao}
-                                                        </p>
-                                                        <p style={{color: "white"}}>
-                                                            <b>E-mail: </b>{member.email}
-                                                        </p>
-                                                        <a href={member.lattes} style={{color: "yellow"}}>
-                                                            Currículo Lattes
-                                                        </a><br></br>
-                                                        <p style={{color: "yellow", cursor: "pointer"}} onClick={() => {
-                                                                this.getICVInfo(member.icv);
-                                                                this.setModalShowICV(true);
-                                                            }}>
-                                                            ICV
-                                                        </p>
-                                                    </div>
-                                                </div>
-
-                                            :   // If false
-                                                <div align="center">   
-                                                    <Image width="180px" height="180px" src={member.foto} roundedCircle />
-                                                </div>
-                                        }
+                                        <div align="left">   
+                                            <h1 align="center" style={{color: "white"}}>{member.nome}</h1>
+                                            <div align="center">
+                                                <p style={{color: "white"}}>
+                                                    {member.descricao}
+                                                </p>
+                                                <p style={{color: "white"}}>
+                                                    <b>E-mail: </b>{member.email}
+                                                </p>
+                                                <a href={member.lattes} style={{color: "yellow"}}>
+                                                    Currículo Lattes
+                                                </a><br></br>
+                                                <p style={{color: "yellow", cursor: "pointer"}} onClick={() => {
+                                                        this.getICVInfo(member.icv);
+                                                        this.setModalShowICV(true);
+                                                    }}>
+                                                    ICV
+                                                </p>
+                                            </div>
+                                        </div>
                                     </Col>
-                                    <Col>
-                                        {index % 2 === 0
-                                            ?   // If true
-                                                <div align="center">   
-                                                    <Image width="171px" height="180px" src={member.foto} roundedCircle />
-                                                </div>
-                                            :   // If false
-                                                <div align="left">   
-                                                    <h1 align="center" style={{color: "white"}}>{member.nome}</h1>
-                                                    <div align="center">
-                                                        <p style={{color: "white"}}>
-                                                            {member.descricao}
-                                                        </p>
-                                                        <p style={{color: "white"}}>
-                                                            <b>E-mail: </b>{member.email}
-                                                        </p>
-                                                        <a href={member.lattes} style={{color: "yellow"}}>
-                                                            Currículo Lattes
-                                                        </a>
-                                                        <p style={{color: "yellow", cursor: "pointer"}} onClick={() => {
-                                                                this.getICVInfo(member.icv);
-                                                                this.setModalShowICV(true);
-                                                            }}>
-                                                            ICV
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                        }
-                                    </Col>
+                                    {(index % 2 !== 0 && (!onSmartView)) ?
+                                        <Col>
+                                            <div align="center">   
+                                                <Image width="180px" height="180px" src={member.foto} roundedCircle />
+                                            </div>
+                                        </Col>
+                                        :
+                                        <></>
+                                    }
                                     {/* Modal Projeto */}
                                     <Modal
                                         show={modalShowICV}

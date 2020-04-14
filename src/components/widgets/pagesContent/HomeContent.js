@@ -28,7 +28,7 @@ class HomeContent extends Component {
     }
 
     updateDimensions = () => {
-        if(window.innerWidth < 515){
+        if(window.innerWidth < 550){
             this.setState({
                 align: "center",
                 displayIcons: 'none',
