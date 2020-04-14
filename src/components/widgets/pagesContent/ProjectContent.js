@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import {Zoom} from '@material-ui/core'
 import DataHandler from '../../../data/ProjectDataHandler';
 import Loading from '../Loading';
+import Project from '../subContent/Project'
 
 class ProjectContent extends Component {
 
@@ -12,7 +13,27 @@ class ProjectContent extends Component {
             loading: true,
             checked: false,
             projects: [],
+            fontSizeTitle: '65px',
+            onSmartView: false
         };
+    }
+
+    componentWillMount(){
+        this.updateDimensions();
+    }
+
+    updateDimensions = () => {
+        if(window.innerWidth < 515){
+            this.setState({
+                fontSizeTitle: '50px',
+                onSmartView: true
+            });
+        }else{
+            this.setState({
+                fontSizeTitle: '65px',
+                onSmartView: false
+            });
+        }
     }
 
     async componentDidMount() {
@@ -22,6 +43,7 @@ class ProjectContent extends Component {
             checked: true,
             projects
         });
+        window.addEventListener('resize', this.updateDimensions);
     }
 
     handleLoad = () => {
@@ -31,7 +53,7 @@ class ProjectContent extends Component {
     }
     
     render() {
-        const {projects, checked} = this.state
+        const {projects, checked, fontSizeTitle, onSmartView} = this.state
         if (this.state.loading) {
             return (
                 <Container style={{
@@ -46,57 +68,34 @@ class ProjectContent extends Component {
             <>
                 <Row onLoad={this.handleLoad} xs={1} md={2}>
                     <Col>
-                        <h1 align="center" style={{color: "white", fontSize: "65px"}}>PROJETOS</h1>
+                        <h1 align="center" style={{color: "white", fontSize: fontSizeTitle}}>PROJETOS</h1>
                     </Col>
                 </Row>
                 <Row>
-                {projects
-                    .map((project, index) => (
-                        <>
+                {projects.map((project, index) => (
+                    <>
                         <Zoom in={checked} style={{transitionDelay: checked ? index*"250"+"ms" : '0ms'}}>
                             <Container>
-                                <Row onLoad={this.handleLoad} xs={1} md={2}>
-                                    <Col>
-                                        {index % 2 === 0
-                                            ?   // If true
-                                                <><div align="left">   
-                                                    <h1 align="left" style={{color: "white"}}>{project.nome}</h1>
-                                                    <div align="left">
-                                                        <p style={{color: "white"}}>
-                                                            {project.descricao}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <br></br><br></br><br></br><br></br><br></br></>
-                                            :   
-                                                <>
-                                                </>
-                                        }
-                                    </Col>
-                                    <Col>
-                                    
-                                    </Col>
-                                    <Col>
-                                        {index % 2 !== 0
-                                            ?   // If true
-                                                <><div align="left">   
-                                                    <h1 align="left" style={{color: "white"}}>{project.nome}</h1>
-                                                    <div align="left">
-                                                        <p style={{color: "white"}}>
-                                                            {project.descricao}
-                                                        </p>
-                                                    </div>
-                                                </div><br></br><br></br><br></br><br></br><br></br></>
-
-                                            :   
-                                                <>
-                                                </>
-                                        }
-                                    </Col>
-                                </Row>
+                                { onSmartView ? 
+                                    <Row onLoad={this.handleLoad} xs={1} md={2}>
+                                        <Col>
+                                            <Project title = {project.nome} description = {project.descricao} onSmartView = {onSmartView} index = {index} /> 
+                                        </Col>
+                                    </Row>
+                                    :
+                                    <Row onLoad={this.handleLoad} xs={1} md={2}>
+                                        {index % 2 !== 0 ? <Col></Col> : <></> }
+                                        {index % 2 !== 0 ? <Col></Col> : <></> }
+                                        <Col>
+                                            <Project title = {project.nome} description = {project.descricao} onSmartView = {onSmartView} index = {index} /> 
+                                        </Col>
+                                        { index % 2 === 0 ? <Col></Col> : <></> }
+                                        { index % 2 === 0 ? <Col></Col> : <></> }
+                                    </Row>
+                                }
                             </Container>
                         </Zoom>
-                        </>
+                    </>
                 ))}
                 </Row>
             </>

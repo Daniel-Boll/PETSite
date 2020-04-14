@@ -13,7 +13,8 @@ class HomeContent extends Component {
         this.state = {
             checked: '',
             align: '',
-            display: ''
+            displayIcons: '',
+            marginResize: ''
         }
     }
 
@@ -30,12 +31,14 @@ class HomeContent extends Component {
         if(window.innerWidth < 515){
             this.setState({
                 align: "center",
-                display: 0
+                displayIcons: 'none',
+                marginResize: '50px'
             });
         }else{
             this.setState({
                 align: "left",
-                display: 100
+                displayIcons: '',
+                marginResize: ''
             });
         }
     }
@@ -48,7 +51,7 @@ class HomeContent extends Component {
     }
 
     render() {
-        const {checked, align, display} = this.state
+        const {checked, align, displayIcons, marginResize} = this.state
         return (
             <>
                 <Row onLoad={this.handleLoad} xs={1} md={2}>
@@ -102,7 +105,7 @@ class HomeContent extends Component {
                             <br></br>
                             {/* Opacity é alterada pra 0 quando passa de uma determinado tamanho, então deixam de ser mostrados */}
 
-                            <div style={{opacity: display}}>
+                            <div style={{display: displayIcons}}>
                                 <Zoom in={checked} style={{transitionDelay: checked ? '1250ms' : '0ms'}}>
                                     <Container>
                                         <PETIcons/>
@@ -134,7 +137,7 @@ class HomeContent extends Component {
                             </div>
                         </Col>
                         <Col>
-                            <div>
+                            <div style={{ marginTop: marginResize}}>
                                 <Zoom in={checked} style={{transitionDelay: checked ? '1000ms' : '0ms'}}>
                                     <Container>
                                         <div style={{maxWidth: "300px"}} align="left">   
@@ -148,7 +151,7 @@ class HomeContent extends Component {
                             </div>
                         </Col>
                         <Col>
-                        <div>
+                        <div style={{ marginTop: marginResize}}>
                             <Zoom in={checked} style={{transitionDelay: checked ? '1000ms' : '0ms'}}>
                                 <Container>
                                     <div style={{maxWidth: "300px"}} align="left">   

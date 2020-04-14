@@ -20,13 +20,20 @@ class MemberContent extends Component {
         };
     }
 
+    componentWillMount(){
+        this.updateDimensions();
+    }
+
     async componentDidMount() {
         let members = await DataHandler.getAllMembers();
         this.setState({
             loading: false,
             checked: true,
-            members
+            members,
+            fontSizeTitle: '65px'
         });
+        window.addEventListener('resize', this.updateDimensions);
+        this.updateDimensions();
     }
 
     handleLoad = () => {
@@ -53,6 +60,20 @@ class MemberContent extends Component {
         });
     }
 
+    updateDimensions = () => {
+        if(window.innerWidth < 515){
+            this.setState({
+                fontSizeTitle: '50px',
+                onSmartView: true
+            });
+        }else{
+            this.setState({
+                fontSizeTitle: '65px',
+                onSmartView: false
+            });
+        }
+    }
+
     cleanICVInfo = () => {
         this.setState({
             advisor: '',
@@ -63,7 +84,7 @@ class MemberContent extends Component {
     }
 
     render() {
-        const {members, checked, modalShowICV} = this.state
+        const { members, checked, modalShowICV, fontSizeTitle } = this.state
         if (this.state.loading) {
             return (
                 <Container>
@@ -76,8 +97,7 @@ class MemberContent extends Component {
             <>
                 <Row onLoad={this.handleLoad} >
                     <Col>
-                        <h1 align="center" style={{color: "white", fontSize: "65px"}}>PETIANOS</h1>
-                        <br></br><br></br><br></br>
+                        <h1 align="center" style={{color: "white", fontSize: fontSizeTitle, marginBottom: '50px'}}>PETIANOS</h1>
                     </Col>
                 </Row>
                 {members
