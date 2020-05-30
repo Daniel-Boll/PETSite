@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Container, Row, Col } from "react-bootstrap";
+import { Container, Row, Col, Image} from "react-bootstrap";
 import {Zoom} from '@material-ui/core'
 import DataHandler from '../../../data/ProjectDataHandler';
 import Loading from '../Loading';
@@ -76,23 +76,32 @@ class ProjectContent extends Component {
                     <>
                         <Zoom in={checked} style={{transitionDelay: checked ? index*"250"+"ms" : '0ms'}}>
                             <Container>
-                                { onSmartView ? 
-                                    <Row onLoad={this.handleLoad} xs={1} md={2}>
-                                        <Col>
-                                            <Project title = {project.nome} description = {project.descricao} onSmartView = {onSmartView} index = {index} /> 
-                                        </Col>
-                                    </Row>
-                                    :
-                                    <Row onLoad={this.handleLoad} xs={1} md={2}>
-                                        {index % 2 !== 0 ? <Col></Col> : <></> }
-                                        {index % 2 !== 0 ? <Col></Col> : <></> }
-                                        <Col>
-                                            <Project title = {project.nome} description = {project.descricao} onSmartView = {onSmartView} index = {index} /> 
-                                        </Col>
-                                        { index % 2 === 0 ? <Col></Col> : <></> }
-                                        { index % 2 === 0 ? <Col></Col> : <></> }
-                                    </Row>
-                                }
+                                <div align="center">
+                                    { onSmartView ? 
+                                        <Row onLoad={this.handleLoad} xs={1} md={2}>
+                                            <Col>
+                                                <Project title = {project.nome} description = {project.descricao} onSmartView = {onSmartView} index = {index} /> 
+                                            </Col>
+                                        </Row>
+                                        :
+                                        <Row onLoad={this.handleLoad} xs={1} md={2}>
+                                            {index % 2 !== 0 ?
+                                            <Col>
+                                                <div align="center">   
+                                                    <Image width="400px" height="320px" src={project.foto}/>
+                                                </div>
+                                            </Col> : <></> }
+                                            <Col>
+                                                <Project title = {project.nome} description = {project.descricao} onSmartView = {onSmartView} index = {index} /> 
+                                            </Col>
+                                            { index % 2 === 0 ? <Col>
+                                                <div align="center">   
+                                                    <Image width="400px" height="320px" src={project.foto}/>
+                                                </div>
+                                            </Col> : <></> }
+                                        </Row>
+                                    }
+                                </div>
                             </Container>
                         </Zoom>
                     </>

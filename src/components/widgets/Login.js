@@ -63,10 +63,12 @@ class Login extends Component {
         .then(result => {
             this.setState({
                 isLoggedIn: true
-            })
+            });
+            window.alert("Login correto");
             this.forceUpdate();
         })
         .catch(error => {
+            window.alert("Login incorreto");
             return <Authentication isLoggedIn={false}/>     
 
         });

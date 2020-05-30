@@ -24,7 +24,6 @@ class NavBar extends Component {
                             <Nav.Link href="/"          style={{color: "white"}}><b>INÍCIO</b></Nav.Link>
                             <Nav.Link href="/Project"   style={{color: "white"}}><b>PROJETOS</b></Nav.Link>
                             <Nav.Link href="/Member"    style={{color: "white"}}><b>MEMBROS</b></Nav.Link>
-                            <Nav.Link href="/Contact"   style={{color: "white"}}><b>CONTATOS</b></Nav.Link>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar><br/><br/><br/><br/>

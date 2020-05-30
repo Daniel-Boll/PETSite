@@ -22,6 +22,7 @@ class Forms extends Component{
             email: '',
             lattes: '',
             foto: '',
+            fotoP: '',
             icv: {
                 ano: '',
                 titulo: '',
@@ -141,6 +142,7 @@ class Forms extends Component{
             descricao: '',
             email: '',
             lattes: '',
+            foto: '',
             icv: {
                 ano: '',
                 titulo: '',
@@ -156,6 +158,7 @@ class Forms extends Component{
         this.setState({
             nomeP: '',
             descricaoP: '',
+            fotoP: '',
             editP: false,
             idP: ''
         });
@@ -167,6 +170,7 @@ class Forms extends Component{
             descricao: member.descricao,
             email: member.email,
             lattes: member.lattes,
+            foto: member.foto,
             icv: {
                 ano: member.icv.year,
                 titulo: member.icv.title,
@@ -199,6 +203,7 @@ class Forms extends Component{
         this.setState({
             nomeP: project.nome,
             descricaoP: project.descricao,
+            fotoP: project.foto,
             editP: true,
             idP: project.id
         });
@@ -226,12 +231,27 @@ class Forms extends Component{
         const apikey = 'ApvO7wrqsQeWNVacJ2GJcz';
         const client = filestack.init(apikey);
         const options = {
-            maxFiles: 20,
+            maxFiles: 70,
             uploadInBackground: false,
             onOpen: () => console.log('opened!'),
             onUploadDone: (res) => {
                 let url = res.filesUploaded[0].url
                 this.setState({foto: url});
+            }
+        };
+        client.picker(options).open();
+    }
+
+    uploadImageP = () => {
+        const apikey = 'ApvO7wrqsQeWNVacJ2GJcz';
+        const client = filestack.init(apikey);
+        const options = {
+            maxFiles: 70,
+            uploadInBackground: false,
+            onOpen: () => console.log('opened!'),
+            onUploadDone: (res) => {
+                let url = res.filesUploaded[0].url
+                this.setState({fotoP: url});
             }
         };
         client.picker(options).open();
@@ -469,6 +489,9 @@ class Forms extends Component{
                                             onChange={this.handleDescriptionChangeProject}
                                         />
                                     </Form.Group>
+                                    <Button variant="success" onClick={this.uploadImageP}>
+                                        Upload Imagem
+                                    </Button>
                                     {(this.state.editP) 
                                     ? <Button variant="success" onClick={this.handleUpdateProject}>Atualizar Projeto</Button>
                                     : <Button variant="success" onClick={this.handleInsertProject}>Cadastrar Projeto</Button>

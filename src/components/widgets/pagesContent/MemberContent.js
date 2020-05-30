@@ -17,6 +17,7 @@ class MemberContent extends Component {
             description: '',
             year: '',
             title: '',
+            foto: '',
             onSmartView: false
         };
     }

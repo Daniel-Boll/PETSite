@@ -61,7 +61,8 @@ class ProjectDataHandler {
       let projects = [
         Projeto(
           projectInfo.nomeP,
-          projectInfo.descricaoP
+          projectInfo.descricaoP,
+          projectInfo.fotoP
         )
       ];
 
@@ -77,7 +78,8 @@ class ProjectDataHandler {
       let projects = [
         Projeto(
           projectInfo.nomeP,
-          projectInfo.descricaoP
+          projectInfo.descricaoP,
+          projectInfo.fotoP
         )
       ];
 
