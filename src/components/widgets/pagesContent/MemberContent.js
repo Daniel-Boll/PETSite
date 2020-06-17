@@ -120,10 +120,8 @@ class MemberContent extends Component {
                                         <Col>
                                             <div align="center">   
                                                 <Image width="180px" height="180px" src={member.foto} roundedCircle />
+                                                <Radar/>
                                             </div>
-                                        </Col>
-                                        <Col>
-                                            <Radar/>
                                         </Col>
                                     </>
                                         :
@@ -154,10 +152,8 @@ class MemberContent extends Component {
                                     {(index % 2 !== 0 && (!onSmartView)) ?
                                     <>
                                         <Col>
-                                            <Radar/>
-                                        </Col>
-                                        <Col>
                                             <div align="center">   
+                                                <Radar/>
                                                 <Image width="180px" height="180px" src={member.foto} roundedCircle />
                                             </div>
                                         </Col>
