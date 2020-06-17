@@ -3,6 +3,7 @@ import { Container, Row, Col, Image, Modal, Button } from "react-bootstrap";
 import {Zoom} from '@material-ui/core'
 import DataHandler from '../../../data/MemberDataHandler';
 import Loading from '../Loading';
+import Radar from '../Radar';
 
 class MemberContent extends Component {
 
@@ -85,6 +86,12 @@ class MemberContent extends Component {
         })
     }
 
+    myRenderPoint (point) {
+        return (
+          <circle cx={point[0]} cy={point[1]} r={5} />
+        )
+    }
+
     render() {
         const { members, checked, modalShowICV, fontSizeTitle, onSmartView } = this.state
         if (this.state.loading) {
@@ -109,11 +116,16 @@ class MemberContent extends Component {
                             <Container>
                                 <Row onLoad={this.handleLoad} xs={1} md={2}>
                                 {(index % 2 === 0 || onSmartView) ?
+                                    <>
                                         <Col>
                                             <div align="center">   
                                                 <Image width="180px" height="180px" src={member.foto} roundedCircle />
                                             </div>
                                         </Col>
+                                        <Col>
+                                            <Radar/>
+                                        </Col>
+                                    </>
                                         :
                                         <></>
                                     }
@@ -140,11 +152,16 @@ class MemberContent extends Component {
                                         </div>
                                     </Col>
                                     {(index % 2 !== 0 && (!onSmartView)) ?
+                                    <>
+                                        <Col>
+                                            <Radar/>
+                                        </Col>
                                         <Col>
                                             <div align="center">   
                                                 <Image width="180px" height="180px" src={member.foto} roundedCircle />
                                             </div>
                                         </Col>
+                                    </>
                                         :
                                         <></>
                                     }

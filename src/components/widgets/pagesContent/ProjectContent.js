@@ -71,6 +71,7 @@ class ProjectContent extends Component {
                         <h1 align="center" style={{color: "white", fontSize: fontSizeTitle}}>PROJETOS</h1>
                     </Col>
                 </Row>
+                <br></br><br></br>
                 <Row>
                 {projects.map((project, index) => (
                     <>
@@ -102,6 +103,7 @@ class ProjectContent extends Component {
                                         </Row>
                                     }
                                 </div>
+                                <br></br><br></br><br></br><br></br>
                             </Container>
                         </Zoom>
                     </>
