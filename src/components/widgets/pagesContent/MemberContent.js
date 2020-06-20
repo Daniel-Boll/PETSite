@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState} from 'react'
 import { Container, Row, Col, Image, Modal, Button } from "react-bootstrap";
 import {Zoom} from '@material-ui/core'
 import DataHandler from '../../../data/MemberDataHandler';
@@ -93,7 +93,7 @@ class MemberContent extends Component {
     }
 
     render() {
-        const { members, checked, modalShowICV, fontSizeTitle, onSmartView } = this.state
+        const { members, checked, modalShowICV, fontSizeTitle, onSmartView } = this.state;
         if (this.state.loading) {
             return (
                 <Container>
@@ -139,13 +139,15 @@ class MemberContent extends Component {
                                                 </p>
                                                 <a href={member.lattes} style={{color: "yellow"}}>
                                                     Currículo Lattes
-                                                </a><br></br>
-                                                <p style={{color: "yellow", cursor: "pointer"}} onClick={() => {
-                                                        this.getICVInfo(member.icv);
-                                                        this.setModalShowICV(true);
-                                                    }}>
-                                                    ICV
-                                                </p>
+                                                </a>
+                                                <ModalProjeto 
+                                                    title={member.icv.title}
+                                                    description={member.icv.description} 
+                                                    advisor={member.icv.advisor} 
+                                                    year={member.icv.year}
+                                                />
+                                                <ModalFAQ/>
+                                                
                                             </div>
                                         </div>
                                     </Col>
@@ -161,38 +163,6 @@ class MemberContent extends Component {
                                         :
                                         <></>
                                     }
-                                    {/* Modal Projeto */}
-                                    <Modal
-                                        show={modalShowICV}
-                                        size="lg"
-                                        aria-labelledby="contained-modal-title-vcenter"
-                                        centered
-                                        >
-                                        <Modal.Header closeButton>
-                                            <Modal.Title id="contained-modal-title-vcenter">
-                                                ICV DO PETIANO
-                                            </Modal.Title>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            <div align="center">
-                                                <h1>{this.state.title}</h1>
-                                                <Row>
-                                                    <Col>
-                                                        <p>{this.state.description}</p>
-                                                    </Col>
-                                                </Row>
-                                                <Row>
-                                                    <Col>
-                                                        <p><b>{this.state.advisor}</b></p>
-                                                        <p><b>{this.state.year}</b></p>
-                                                    </Col>
-                                                </Row>
-                                            </div>
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            <Button onClick={() => this.setModalShowICV(false)}>Close</Button>
-                                        </Modal.Footer>
-                                    </Modal>
                                 </Row><br></br><br></br><br></br><br></br>
                             </Container>
                         </Zoom>
@@ -201,6 +171,80 @@ class MemberContent extends Component {
             </>
         )
     }
+}
+
+const ModalProjeto = (props) => {
+    
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    const {title, description, advisor, year} = props;
+
+    return(<>
+
+        {/* Modal Projeto*/}
+        <p style={{color: "yellow", cursor: "pointer", marginBottom: 0}} onClick={handleShow}>
+            ICV
+        </p>
+        <Modal show={show} onHide={handleClose} size="lg">
+            <Modal.Header closeButton>
+            <Modal.Title>ICV DO PETIANO</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <div align="center">
+                    <h1>{title}</h1>
+                    <Row>
+                        <Col>
+                            <p>{description}</p>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <p><b>{advisor}</b></p>
+                            <p><b>{year}</b></p>
+                        </Col>
+                    </Row>
+                </div>
+            </Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+                Close
+            </Button>
+            </Modal.Footer>
+        </Modal>    
+    </>);
+}
+
+const ModalFAQ = (props) => {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+
+    return(
+        <>
+        {/* Modal Q&A */}
+        <p style={{color: "yellow", cursor: "pointer"}} onClick={handleShow}>
+            Saiba mais...
+        </p>
+        <Modal show={show} onHide={handleClose}>
+            <Modal.Header closeButton>
+            <Modal.Title>Modal heading</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+                Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+                Save Changes
+            </Button>
+            </Modal.Footer>
+        </Modal>
+        </>
+    );
 }
 
 export default MemberContent;
