@@ -92,6 +92,20 @@ class MemberContent extends Component {
         )
     }
 
+    sortOn (arr, prop) {
+        arr.sort (
+            function (a, b) {
+                if (a[prop].toUpperCase() < b[prop].toUpperCase()){
+                    return -1;
+                } else if (a[prop].toUpperCase() > b[prop].toUpperCase()){
+                    return 1;
+                } else {
+                    return 0;   
+                }
+            }
+        );
+    }
+
     render() {
         const { members, checked, modalShowICV, fontSizeTitle, onSmartView } = this.state;
         if (this.state.loading) {
@@ -109,9 +123,11 @@ class MemberContent extends Component {
                         <h1 align="center" style={{color: "white", fontSize: fontSizeTitle, marginBottom: '50px'}}>PETIANOS</h1>
                     </Col>
                 </Row>
+                {this.sortOn(members, "nome")}
                 {members
                     .map((member, index) => (
                         <>
+                        {console.log(member)}
                         <Zoom in={checked} style={{transitionDelay: checked ? index*"250"+"ms" : '0ms'}}>
                             <Container>
                                 <Row onLoad={this.handleLoad} xs={1} md={2}>
