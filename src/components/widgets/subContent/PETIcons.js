@@ -1,14 +1,19 @@
 import React, {Component} from 'react'
-import {MenuBook, FileCopy, Share} from '@material-ui/icons';
+import test from '../../../assets/test.png'
+
 
 class Logo extends Component {
     render() {
         return (
             <>
-                <div>   
-                    <MenuBook style={{color: "#955dff", fontSize: 140}}/>
-                    <FileCopy style={{color: "#955dff", fontSize: 140}}/>
-                    <Share style={{color: "#955dff", fontSize: 140}}/>
+                <div align="center">   
+                    <img 
+                        style={{paddingLeft: "0"}}
+                        width={"300px"}
+                        src={test}
+                        alt="PETtest"
+                    >    
+                    </img>
                 </div>
             </>
         )
