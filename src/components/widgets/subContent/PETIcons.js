@@ -9,7 +9,7 @@ class Logo extends Component {
                 <div align="center">   
                     <img 
                         style={{paddingLeft: "0"}}
-                        width={"300px"}
+                        width={"350px"}
                         src={test}
                         alt="PETtest"
                     >    

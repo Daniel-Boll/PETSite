@@ -109,6 +109,7 @@ class HomeContent extends Component {
                                 <Zoom in={checked} style={{transitionDelay: checked ? '1250ms' : '0ms'}}>
                                     <Container>
                                         <PETIcons/>
+                                        <div align="center"><a style={{fontSize:"10px", color:"white"}} href='https://pngtree.com/so/página-de-reunião'>página-de-reunião png from pngtree.com</a></div>
                                     </Container>
                                 </Zoom>
                             </div>
