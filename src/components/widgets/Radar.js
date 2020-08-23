@@ -6,26 +6,36 @@ class Radar extends Component{
 
   constructor(props){
     super(props);
+    const { option_1, value_1, option_2, value_2, option_3, value_3, option_4, value_4, option_5, value_5 } = props;
+
+
     this.state = {
       data: [
         {
+          // data: {
+          //   battery: value_1,
+          //   design: value_2,
+          //   useful: value_3,
+          //   speed: value_4,
+          //   weight: value_5
+          // },
           data: {
-            battery: 0.7,
-            design: .8,
-            useful: 0.9,
-            speed: 0.67,
-            weight: .9
+            battery: +value_1,
+            design: +value_2,
+            useful: +value_3,
+            speed: +value_4,
+            weight: +value_5
           },
           meta: { color: 'white' }
         },
       ],
       captions: {
         // columns
-        battery: 'How beautiful',
-        design: 'Design',
-        useful: 'Usefulness',
-        speed: 'Speed',
-        weight: 'Brain'
+        battery: option_1,
+        design: option_2,
+        useful: option_3,
+        speed: option_4,
+        weight: option_5
       },
       defaultOptions: {
         size: 200,

@@ -5,7 +5,7 @@ import DataHandler from '../../../data/MemberDataHandler';
 import Loading from '../Loading';
 import Radar from '../Radar';
 
-class MemberContent extends Component {
+class OldMemberContent extends Component {
 
     constructor(props) {
         super(props);
@@ -120,14 +120,14 @@ class MemberContent extends Component {
             <>
                 <Row onLoad={this.handleLoad} >
                     <Col>
-                        <h1 align="center" style={{color: "white", fontSize: fontSizeTitle, marginBottom: '50px'}}>PETIANOS</h1>
+                        <h1 align="center" style={{color: "white", fontSize: fontSizeTitle, marginBottom: '50px'}}>PETIANOS EGRESSOS</h1>
                     </Col>
                 </Row>
                 {this.sortOn(members, "nome")}
                 {members
                     .map((member, index) => (
                         <>
-                        {(member.old !== 'Sim')?
+                        {(member.old == 'Sim')?
                         <Zoom in={checked} style={{transitionDelay: checked ? index*"250"+"ms" : '0ms'}}>
                             <Container>
                                 <Row onLoad={this.handleLoad} xs={1} md={2}>
@@ -136,18 +136,7 @@ class MemberContent extends Component {
                                         <Col>
                                             <div align="center">   
                                                 <Image width="180px" height="180px" src={member.foto} roundedCircle />
-                                                <Radar
-                                                    option_1={member.polygon.option_1}
-                                                    value_1={member.polygon.value_1}
-                                                    option_2={member.polygon.option_2}
-                                                    value_2={member.polygon.value_2}
-                                                    option_3={member.polygon.option_3}
-                                                    value_3={member.polygon.value_3}
-                                                    option_4={member.polygon.option_4}
-                                                    value_4={member.polygon.value_4}
-                                                    option_5={member.polygon.option_5}
-                                                    value_5={member.polygon.value_5}
-                                                />
+                                                <Radar/>
                                             </div>
                                         </Col>
                                     </>
@@ -173,18 +162,7 @@ class MemberContent extends Component {
                                                     advisor={member.icv.advisor} 
                                                     year={member.icv.year}
                                                 />
-                                                <ModalFAQ
-                                                    city={member.faq.city}                                        
-                                                    ycs={member.faq.ycs}                                        
-                                                    ifncs={member.faq.ifncs}                                        
-                                                    aa={member.faq.aa}                                        
-                                                    hp={member.faq.hp}                                        
-                                                    bk={member.faq.bk}                                        
-                                                    mv={member.faq.mv}                                        
-                                                    gm={member.faq.gm}                                        
-                                                    mc={member.faq.mc}                                        
-                                                    fd={member.faq.fd}  
-                                                />
+                                                <ModalFAQ/>
                                                 
                                             </div>
                                         </div>
@@ -262,8 +240,6 @@ const ModalFAQ = (props) => {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const {city, ycs, ifncs, aa, hp, bk, mv, gm, mc, fd} = props;
-
     return(
         <>
         {/* Modal Q&A */}
@@ -272,53 +248,15 @@ const ModalFAQ = (props) => {
         </p>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-            <Modal.Title>Informações sobre o Petiano!</Modal.Title>
+            <Modal.Title>Modal heading</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
-                <div className="question-container">
-                    <p><b>Cidade onde nasceu:</b></p>
-                    <p>{city} </p>
-                </div>
-                <div className="question-container">
-                    <p><b>Por que Ciência da Computação?</b></p>
-                    <p>{ycs} </p>
-                </div>
-                <div className="question-container">
-                    <p><b>Se não fizesse Ciência da Computação, o que faria?</b></p>
-                    <p>{ifncs} </p>
-                </div>
-                <div className="question-container">
-                    <p><b>Pretende seguir na área acadêmica</b></p>
-                    <p>{aa} </p>
-                </div>
-                <div className="question-container">
-                    <p><b>Hobby preferido: </b></p>
-                    <p>{hp} </p>
-                </div>
-                <div className="question-container">
-                    <p><b>Livro preferido: </b></p>
-                    <p>{bk} </p>
-                </div>
-                <div className="question-container">
-                    <p><b>Filme preferido: </b></p>
-                    <p>{mv} </p>
-                </div>
-                <div className="question-container">
-                    <p><b>Jogo preferido: </b></p>
-                    <p>{gm} </p>
-                </div>
-                <div className="question-container">
-                    <p><b>Música preferida: </b></p>
-                    <p>{mc} </p>
-                </div>
-                <div className="question-container">
-                    <p><b>Comida preferida: </b></p>
-                    <p>{fd} </p>
-                </div>
-            </Modal.Body>
+            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
             <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>
                 Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+                Save Changes
             </Button>
             </Modal.Footer>
         </Modal>
@@ -326,4 +264,4 @@ const ModalFAQ = (props) => {
     );
 }
 
-export default MemberContent;
+export default OldMemberContent;

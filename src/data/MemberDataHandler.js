@@ -1,6 +1,6 @@
 import * as firebase from "firebase/app";
 import "firebase/database";
-import {Membro, ICV} from '../objects/Membro';
+import {Membro, ICV, FAQ, POLYGON} from '../objects/Membro';
 
 const pathMembers = 'Members';
 
@@ -71,7 +71,32 @@ class MemberDataHandler {
                     memberInfo.icv.orientador,
                     memberInfo.icv.descricao
                     // null
-                )
+                ),
+                FAQ(
+                  memberInfo.faq.city,
+                  memberInfo.faq.ycs,
+                  memberInfo.faq.ifncs,
+                  memberInfo.faq.aa,
+                  memberInfo.faq.hp,
+                  memberInfo.faq.bk,
+                  memberInfo.faq.mv,
+                  memberInfo.faq.gm,
+                  memberInfo.faq.mc,
+                  memberInfo.faq.fd,
+                ),
+                POLYGON(
+                  memberInfo.polygon.option_1,
+                  memberInfo.polygon.value_1,
+                  memberInfo.polygon.option_2,
+                  memberInfo.polygon.value_2,
+                  memberInfo.polygon.option_3,
+                  memberInfo.polygon.value_3,
+                  memberInfo.polygon.option_4,
+                  memberInfo.polygon.value_4,
+                  memberInfo.polygon.option_5,
+                  memberInfo.polygon.value_5
+                ),
+                memberInfo.old
         )
       ];
 
@@ -97,7 +122,32 @@ class MemberDataHandler {
                     memberInfo.icv.orientador,
                     memberInfo.icv.descricao
                     // null
-                )
+                ),
+                FAQ(
+                  memberInfo.faq.city,
+                  memberInfo.faq.ycs,
+                  memberInfo.faq.ifncs,
+                  memberInfo.faq.aa,
+                  memberInfo.faq.hp,
+                  memberInfo.faq.bk,
+                  memberInfo.faq.mv,
+                  memberInfo.faq.gm,
+                  memberInfo.faq.mc,
+                  memberInfo.faq.fd,
+                ),
+                POLYGON(
+                  memberInfo.polygon.option_1,
+                  memberInfo.polygon.value_1,
+                  memberInfo.polygon.option_2,
+                  memberInfo.polygon.value_2,
+                  memberInfo.polygon.option_3,
+                  memberInfo.polygon.value_3,
+                  memberInfo.polygon.option_4,
+                  memberInfo.polygon.value_4,
+                  memberInfo.polygon.option_5,
+                  memberInfo.polygon.value_5
+                ),
+                memberInfo.old
         )
       ];
 

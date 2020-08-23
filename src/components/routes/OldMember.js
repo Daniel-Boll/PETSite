@@ -2,10 +2,10 @@ import React, {Component} from 'react'
 import { Container } from "react-bootstrap";
 import NavBar from '../widgets/NavBar';
 import Footer from '../widgets/Footer';
-import ProjectContent from '../widgets/pagesContent/ProjectContent';
+import OldMemberContent from '../widgets/pagesContent/OldMemberContent';
 import '../../css/App.css';
 
-class Project extends Component {
+class OldMember extends Component {
     render() {
         return (
             <>
@@ -14,7 +14,7 @@ class Project extends Component {
                 </Container>
 
                 <Container style={{ paddingLeft: 0, paddingRight: 0}}>
-                    <ProjectContent/>
+                    <OldMemberContent/>
                 </Container>
 
                 <Container style={{ paddingLeft: 0, paddingRight: 0 }}>
@@ -25,4 +25,4 @@ class Project extends Component {
     }
 }
 
-export default Project;
+export default OldMember;

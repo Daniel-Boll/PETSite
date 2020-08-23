@@ -62,7 +62,9 @@ class ProjectDataHandler {
         Projeto(
           projectInfo.nomeP,
           projectInfo.descricaoP,
-          projectInfo.fotoP
+          projectInfo.fotoP,
+          projectInfo.urlP,
+          projectInfo.oldP,
         )
       ];
 
@@ -79,7 +81,9 @@ class ProjectDataHandler {
         Projeto(
           projectInfo.nomeP,
           projectInfo.descricaoP,
-          projectInfo.fotoP
+          projectInfo.fotoP,
+          projectInfo.urlP,
+          projectInfo.oldP,
         )
       ];
 

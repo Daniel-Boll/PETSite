@@ -5,7 +5,7 @@ import DataHandler from '../../../data/ProjectDataHandler';
 import Loading from '../Loading';
 import Project from '../subContent/Project'
 
-class ProjectContent extends Component {
+class OldProjectContent extends Component {
 
     constructor(props) {
         super(props);
@@ -68,14 +68,14 @@ class ProjectContent extends Component {
             <>
                 <Row onLoad={this.handleLoad} xs={1} md={2}>
                     <Col>
-                        <h1 align="center" style={{color: "white", fontSize: fontSizeTitle}}>PROJETOS</h1>
+                        <h1 align="center" style={{color: "white", fontSize: fontSizeTitle}}>PROJETOS ANTIGOS</h1>
                     </Col>
                 </Row>
                 <br></br><br></br>
                 <Row>
                 {projects.map((project, index) => (
                     <>
-                        {(project.old !== 'Sim')?
+                        {(project.old == 'Sim') ?
                         <Zoom in={checked} style={{transitionDelay: checked ? index*"250"+"ms" : '0ms'}}>
                             <Container>
                                 <div align="center">
@@ -116,4 +116,4 @@ class ProjectContent extends Component {
     }
 }
 
-export default ProjectContent;
+export default OldProjectContent;
