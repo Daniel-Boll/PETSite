@@ -89,16 +89,18 @@ class ProjectContent extends Component {
                                         <Row onLoad={this.handleLoad} xs={1} md={2}>
                                             {index % 2 !== 0 ?
                                             <Col>
-                                                <div align="center">   
-                                                    <Image width="400px" height="320px" src={project.foto}/>
+                                                <div style={{display:"flex", alignItems:"center", justifyContent:"flex-start"}}> 
+                                                    <div style={{display:"flex", alignItems:"center"}}><a style={{fontSize:"10px", color:"#A9A9A9", writingMode:"vertical-lr", transform:"rotate(-180deg)"}} url= {project.url}>{project.url}</a></div>
+                                                    <div style={{display:"flex", alignItems:"center"}}><Image width="400px" height="320px" src={project.foto}/></div>
                                                 </div>
                                             </Col> : <></> }
                                             <Col>
                                                 <Project title = {project.nome} description = {project.descricao} onSmartView = {onSmartView} index = {index} /> 
                                             </Col>
                                             { index % 2 === 0 ? <Col>
-                                                <div align="center">   
-                                                    <Image width="400px" height="320px" src={project.foto}/>
+                                                <div style={{display:"flex", alignItems:"center", justifyContent:"flex-end"}}>   
+                                                    <div style={{display:"flex", alignItems:"center", justifyContent:"center"}}><Image width="400px" height="320px" src={project.foto}/></div>
+                                                    <div style={{display:"flex", alignItems:"center"}}><a style={{fontSize:"10px", color:"#A9A9A9", writingMode:"vertical-lr"}} href = {project.url}>{project.url}</a></div>
                                                 </div>
                                             </Col> : <></> }
                                         </Row>

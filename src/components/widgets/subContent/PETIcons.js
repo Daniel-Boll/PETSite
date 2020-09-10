@@ -6,7 +6,7 @@ class Logo extends Component {
     render() {
         return (
             <>
-                <div align="center">   
+                <div display="flex" align="center">   
                     <img 
                         style={{paddingLeft: "0"}}
                         width={"350px"}
