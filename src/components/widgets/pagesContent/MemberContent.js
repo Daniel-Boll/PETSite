@@ -135,19 +135,22 @@ class MemberContent extends Component {
                                     <>
                                         <Col>
                                             <div align="center">   
-                                                <Image width="180px" height="180px" src={member.foto} roundedCircle />
-                                                <Radar
-                                                    option_1={member.polygon.option_1}
-                                                    value_1={member.polygon.value_1}
-                                                    option_2={member.polygon.option_2}
-                                                    value_2={member.polygon.value_2}
-                                                    option_3={member.polygon.option_3}
-                                                    value_3={member.polygon.value_3}
-                                                    option_4={member.polygon.option_4}
-                                                    value_4={member.polygon.value_4}
-                                                    option_5={member.polygon.option_5}
-                                                    value_5={member.polygon.value_5}
-                                                />
+                                                <Image width="180px" height="180px" src={member.foto} roundedCircle />    
+                                                {(member.polygon.option_1 == null) ?
+                                                     <Radar
+                                                     option_1={member.polygon.option_1}
+                                                     value_1={member.polygon.value_1}
+                                                     option_2={member.polygon.option_2}
+                                                     value_2={member.polygon.value_2}
+                                                     option_3={member.polygon.option_3}
+                                                     value_3={member.polygon.value_3}
+                                                     option_4={member.polygon.option_4}
+                                                     value_4={member.polygon.value_4}
+                                                     option_5={member.polygon.option_5}
+                                                     value_5={member.polygon.value_5}
+                                                    /> : <></> 
+                                                }                                               
+                                                                                     
                                             </div>
                                         </Col>
                                     </>
@@ -173,6 +176,7 @@ class MemberContent extends Component {
                                                     advisor={member.icv.advisor} 
                                                     year={member.icv.year}
                                                 />
+                                                {(member.faq.city == null)? 
                                                 <ModalFAQ
                                                     city={member.faq.city}                                        
                                                     ycs={member.faq.ycs}                                        
@@ -184,7 +188,7 @@ class MemberContent extends Component {
                                                     gm={member.faq.gm}                                        
                                                     mc={member.faq.mc}                                        
                                                     fd={member.faq.fd}  
-                                                />
+                                                /> : <> </> }
                                                 
                                             </div>
                                         </div>
