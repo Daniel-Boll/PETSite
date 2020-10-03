@@ -125,9 +125,9 @@ class OldMemberContent extends Component {
                 </Row>
                 {this.sortOn(members, "nome")}
                 {members
+                    .filter(member => member.old == 'Sim')
                     .map((member, index) => (
                         <>
-                        {(member.old == 'Sim')?
                         <Zoom in={checked} style={{transitionDelay: checked ? index*"250"+"ms" : '0ms'}}>
                             <Container>
                                 <Row onLoad={this.handleLoad} xs={1} md={2}>
@@ -136,7 +136,6 @@ class OldMemberContent extends Component {
                                         <Col>
                                             <div align="center">   
                                                 <Image width="180px" height="180px" src={member.foto} roundedCircle />
-                                                <Radar/>
                                             </div>
                                         </Col>
                                     </>
@@ -170,8 +169,7 @@ class OldMemberContent extends Component {
                                     {(index % 2 !== 0 && (!onSmartView)) ?
                                     <>
                                         <Col>
-                                            <div align="center">   
-                                                <Radar/>
+                                            <div align="center"> 
                                                 <Image width="180px" height="180px" src={member.foto} roundedCircle />
                                             </div>
                                         </Col>
@@ -182,7 +180,6 @@ class OldMemberContent extends Component {
                                 </Row><br></br><br></br><br></br><br></br>
                             </Container>
                         </Zoom>
-                        :<></>}
                         </>
                 ))}
             </>

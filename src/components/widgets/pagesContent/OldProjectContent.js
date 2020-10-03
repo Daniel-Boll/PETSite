@@ -73,9 +73,10 @@ class OldProjectContent extends Component {
                 </Row>
                 <br></br><br></br>
                 <Row>
-                {projects.map((project, index) => (
-                    <>
-                        {(project.old == 'Sim') ?
+                {projects
+                    .filter(project => project.old == 'Sim')
+                    .map((project, index) => (
+                        <>
                         <Zoom in={checked} style={{transitionDelay: checked ? index*"250"+"ms" : '0ms'}}>
                             <Container>
                                 <div align="center">
@@ -109,9 +110,8 @@ class OldProjectContent extends Component {
                                 <br></br><br></br><br></br><br></br>
                             </Container>
                         </Zoom>
-                        :<></>}
-                    </>
-                ))}
+                        </>
+                    ))}
                 </Row>
             </>
         )

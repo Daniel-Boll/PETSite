@@ -377,6 +377,36 @@ class Forms extends Component{
 
     handleEditM = member => {
         let old = (member.old === "Sim") ? true : false; 
+        if(member.faq == null) {
+            member.faq = {
+                city: '',
+                ycs: '',
+                ifncs: '',
+                aa: '',
+                hp: '',
+                bk: '',
+                mv: '',
+                gm: '',
+                mc: '',
+                fd: ''
+            }
+        }
+
+        if(member.polygon == null) {
+            member.polygon = {
+                option_1: '',
+                value_1: '',
+                option_2: '',
+                value_2: '',
+                option_3: '',
+                value_3: '',
+                option_4: '',
+                value_4: '',
+                option_5: '',
+                value_5: '',
+            }
+        }
+
         this.setState({
             nome: member.nome,
             descricao: member.descricao,
@@ -869,7 +899,7 @@ class Forms extends Component{
                                                                     required
                                                                     type="text"
                                                                     placeholder="Valor 3 (0.0 -> 1.0)"
-                                                                    value={this.state.polygon.value_1}
+                                                                    value={this.state.polygon.value_3}
                                                                     onChange={this.handlePolygonValue_3}
                                                                 />
                                                             </Form.Row>

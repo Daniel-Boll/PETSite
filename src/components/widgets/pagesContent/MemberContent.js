@@ -125,30 +125,33 @@ class MemberContent extends Component {
                 </Row>
                 {this.sortOn(members, "nome")}
                 {members
+                    .filter(member => member.old != 'Sim')
                     .map((member, index) => (
                         <>
-                        {(member.old !== 'Sim')?
                         <Zoom in={checked} style={{transitionDelay: checked ? index*"250"+"ms" : '0ms'}}>
                             <Container>
+                                {console.log(member.old)}
                                 <Row onLoad={this.handleLoad} xs={1} md={2}>
                                 {(index % 2 === 0 || onSmartView) ?
                                     <>
                                         <Col>
                                             <div align="center">   
                                                 <Image width="180px" height="180px" src={member.foto} roundedCircle />    
-                                                {(member.polygon.option_1 == null) ?
-                                                     <Radar
-                                                     option_1={member.polygon.option_1}
-                                                     value_1={member.polygon.value_1}
-                                                     option_2={member.polygon.option_2}
-                                                     value_2={member.polygon.value_2}
-                                                     option_3={member.polygon.option_3}
-                                                     value_3={member.polygon.value_3}
-                                                     option_4={member.polygon.option_4}
-                                                     value_4={member.polygon.value_4}
-                                                     option_5={member.polygon.option_5}
-                                                     value_5={member.polygon.value_5}
-                                                    /> : <></> 
+                                                {(member.polygon == null) 
+                                                    ? <></>
+                                                    :
+                                                        <Radar
+                                                        option_1={member.polygon.option_1}
+                                                        value_1={member.polygon.value_1}
+                                                        option_2={member.polygon.option_2}
+                                                        value_2={member.polygon.value_2}
+                                                        option_3={member.polygon.option_3}
+                                                        value_3={member.polygon.value_3}
+                                                        option_4={member.polygon.option_4}
+                                                        value_4={member.polygon.value_4}
+                                                        option_5={member.polygon.option_5}
+                                                        value_5={member.polygon.value_5}
+                                                        /> 
                                                 }                                               
                                                                                      
                                             </div>
@@ -170,25 +173,32 @@ class MemberContent extends Component {
                                                 <a href={member.lattes} style={{color: "yellow"}}>
                                                     Currículo Lattes
                                                 </a>
-                                                <ModalProjeto 
-                                                    title={member.icv.title}
-                                                    description={member.icv.description} 
-                                                    advisor={member.icv.advisor} 
-                                                    year={member.icv.year}
-                                                />
-                                                {(member.faq.city == null)? 
-                                                <ModalFAQ
-                                                    city={member.faq.city}                                        
-                                                    ycs={member.faq.ycs}                                        
-                                                    ifncs={member.faq.ifncs}                                        
-                                                    aa={member.faq.aa}                                        
-                                                    hp={member.faq.hp}                                        
-                                                    bk={member.faq.bk}                                        
-                                                    mv={member.faq.mv}                                        
-                                                    gm={member.faq.gm}                                        
-                                                    mc={member.faq.mc}                                        
-                                                    fd={member.faq.fd}  
-                                                /> : <> </> }
+                                                {member.icv == null 
+                                                ? <></>
+                                                : 
+                                                    <ModalProjeto 
+                                                        title={member.icv.title}
+                                                        description={member.icv.description} 
+                                                        advisor={member.icv.advisor} 
+                                                        year={member.icv.year}
+                                                    />
+                                                }
+                                                {member.faq == null
+                                                ? <></>
+                                                :
+                                                    <ModalFAQ
+                                                        city={member.faq.city}                                        
+                                                        ycs={member.faq.ycs}                                        
+                                                        ifncs={member.faq.ifncs}                                        
+                                                        aa={member.faq.aa}                                        
+                                                        hp={member.faq.hp}                                        
+                                                        bk={member.faq.bk}                                        
+                                                        mv={member.faq.mv}                                        
+                                                        gm={member.faq.gm}                                        
+                                                        mc={member.faq.mc}                                        
+                                                        fd={member.faq.fd}  
+                                                    />
+                                                }
                                                 
                                             </div>
                                         </div>
@@ -197,7 +207,22 @@ class MemberContent extends Component {
                                     <>
                                         <Col>
                                             <div align="center">   
-                                                <Radar/>
+                                                {(member.polygon == null) 
+                                                    ? <></>
+                                                    :
+                                                        <Radar
+                                                        option_1={member.polygon.option_1}
+                                                        value_1={member.polygon.value_1}
+                                                        option_2={member.polygon.option_2}
+                                                        value_2={member.polygon.value_2}
+                                                        option_3={member.polygon.option_3}
+                                                        value_3={member.polygon.value_3}
+                                                        option_4={member.polygon.option_4}
+                                                        value_4={member.polygon.value_4}
+                                                        option_5={member.polygon.option_5}
+                                                        value_5={member.polygon.value_5}
+                                                        /> 
+                                                }        
                                                 <Image width="180px" height="180px" src={member.foto} roundedCircle />
                                             </div>
                                         </Col>
@@ -208,7 +233,6 @@ class MemberContent extends Component {
                                 </Row><br></br><br></br><br></br><br></br>
                             </Container>
                         </Zoom>
-                        :<></>}
                         </>
                 ))}
             </>
