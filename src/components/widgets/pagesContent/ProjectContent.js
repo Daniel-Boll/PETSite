@@ -72,7 +72,7 @@ class ProjectContent extends Component {
                     </Col>
                 </Row>
                 <br></br><br></br>
-                <Row alignItems="center">
+                <Row>
                 {projects
                     .filter(project => project.old != 'Sim')
                     .map((project, index) => (

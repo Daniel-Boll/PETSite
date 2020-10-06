@@ -119,7 +119,7 @@ class HomeContent extends Component {
                 </Container>
                 <br></br><br></br><br></br><br></br><br></br>
                 <Container style={{ paddingLeft: 0, paddingRight: 0, flexDirection: "row"}}>
-                    <Row xs={1} md={2}>
+                    <Row xs={1} md={3}>
                         <Col>
                             {/* Projeto, pesquisa e extenção */}
                             <div>
