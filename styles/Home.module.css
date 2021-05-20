@@ -1,11 +1,93 @@
 .container {
-  background: linear-gradient(107.56deg, #30A7BB 0%, #340867 100%);
+  background: linear-gradient(135deg, #30A7BB 0%, #340867 100%);
 
   min-height: 100vh;
-  padding: 0 0.5rem;
+  padding: 0 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 100%;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: inherit;
+
+  margin-bottom: 2rem;
+}
+
+.navbar p {
+  color: #ABA8B2;
+}
+
+.navbar strong {
+  color: #fff;
+}
+
+.mainCard {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  border-radius: 39px;
+  
+  text-align: center;
+  padding: 1rem 1.5rem;
+  padding-top: 2rem;
+}
+
+.mainCard p {
+  margin-top: 2rem;
+  text-align: justify;
+  padding: 0 2rem;
+
+  font-size: 1.2rem;
+}
+
+.divisor {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+
+  height: 1px;
+  border-width: 0;
+  background-color: white;
+
+  margin-top: 24px;
+}
+
+.whoWeAre {
+  display: flex;
+  flex-direction: column;
+
   align-items: center;
-  height: 100vh;
+}
+
+.whoWeAre p {
+  margin-bottom: -14px;
+  font-weight: bold;
+}
+
+.whoWeAre p:last-of-type {
+  margin-bottom: 20px;
+}
+
+.secondaryCard {
+  width: 60%;
+  background: linear-gradient(180deg, rgba(196, 196, 196, 0.54) 0%, rgba(196, 196, 196, 0.15) 100%);
+  border-radius: 50px;
+  
+  text-align: center;
+  padding: 1rem 1rem;
+
+  align-self: center;
+
+  margin-bottom: 2.5rem;
+}
+
+.secondaryCard h2 {
+  margin-bottom: -0.4rem;
+  margin-top: -0.08rem;
+}
+
+.cardsImage {
+  margin: 0;
 }
